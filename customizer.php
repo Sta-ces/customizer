@@ -6,7 +6,7 @@
  * Version: 1.0.0
  * Author: Cedric Staces
  * Author URI: https://staces.be/
- * Text Domain: stacesbuilder
+ * Text Domain: staces-builder-theme
  */
 
 namespace StacesBuilder\Inc\Customizer;
