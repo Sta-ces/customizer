@@ -12,19 +12,19 @@
 if (!defined('ABSPATH')) { exit; }
 
 // Plugin activation
-register_activation_hook(__FILE__, function(){ update_option('stacesbuilder_sthcustomizer_activated', true); });
+register_activation_hook(__FILE__, function(){ update_option('stacesbuilder_customizer_activated', true); });
 // Deactivating the plugin
-register_deactivation_hook(__FILE__, function(){ delete_option('stacesbuilder_sthcustomizer_activated'); });
+register_deactivation_hook(__FILE__, function(){ delete_option('stacesbuilder_customizer_activated'); });
 
 namespace StacesBuilder\Inc\Customizer;
 
-use StacesBuilder\Inc\Customizer\STH_Slider_Control;
+use StacesBuilder\Inc\Customizer\ST_Slider_Control;
 
 require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-require_once(__DIR__ . '/config/class-sth-slider-control.php');
+require_once(__DIR__ . '/config/class-slider-control.php');
 
-if(!class_exists('\StacesBuilder\Inc\Customizer\STHCustomizer')){
-	class STHCustomizer{
+if(!class_exists('\StacesBuilder\Inc\Customizer\ST_Customizer')){
+	class ST_Customizer{
 		function __construct(\WP_Customize_Manager $wp, string $name, array $args){
 			if ( ! $wp instanceof \WP_Customize_Manager ) return false;
 			if(!isset($args['label']) || !isset($args['section'])) return false;
@@ -59,7 +59,7 @@ if(!class_exists('\StacesBuilder\Inc\Customizer\STHCustomizer')){
 					$wp->add_control(new \WP_Customize_Media_Control( $wp, $name, $args ));
 					break;
 				case 'range':
-					$wp->add_control(new STH_Slider_Control($wp, $name, $args));
+					$wp->add_control(new ST_Slider_Control($wp, $name, $args));
 					break;
 				default: $wp->add_control($name, $args); break;
 			}
