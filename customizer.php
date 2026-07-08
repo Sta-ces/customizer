@@ -11,14 +11,14 @@
 
 namespace StacesBuilder\Inc\Customizer;
 
+use StacesBuilder\Inc\Customizer\ST_Slider_Control;
+
 if (!defined('ABSPATH')) { exit; }
 
 // Plugin activation
 register_activation_hook(__FILE__, function(){ update_option('stacesbuilder_customizer_activated', true); });
 // Deactivating the plugin
 register_deactivation_hook(__FILE__, function(){ delete_option('stacesbuilder_customizer_activated'); });
-
-use StacesBuilder\Inc\Customizer\ST_Slider_Control;
 
 require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 require_once(__DIR__ . '/config/class-slider-control.php');
