@@ -9,14 +9,14 @@
  * Text Domain: stacesbuilder
  */
 
+namespace StacesBuilder\Inc\Customizer;
+
 if (!defined('ABSPATH')) { exit; }
 
 // Plugin activation
 register_activation_hook(__FILE__, function(){ update_option('stacesbuilder_customizer_activated', true); });
 // Deactivating the plugin
 register_deactivation_hook(__FILE__, function(){ delete_option('stacesbuilder_customizer_activated'); });
-
-namespace StacesBuilder\Inc\Customizer;
 
 use StacesBuilder\Inc\Customizer\ST_Slider_Control;
 
