@@ -1,8 +1,8 @@
 <?php
 namespace StacesBuilder\Inc\Customizer;
 
-if(!class_exists('\StacesBuilder\Inc\Customizer\STH_Slider_Control')){
-	class STH_Slider_Control extends \WP_Customize_Control {
+if(!class_exists('\StacesBuilder\Inc\Customizer\ST_Slider_Control')){
+	class ST_Slider_Control extends \WP_Customize_Control {
 		public $type = 'range';
 
 		public function render_content(): void{
