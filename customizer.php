@@ -1,0 +1,55 @@
+<?php
+/**
+ * Customizer Class
+ * Developer: Cedric Staces
+ * URI: https://staces.be/
+ */
+
+namespace StacesBuilder\Inc\Customizer;
+
+use StacesBuilder\Inc\Customizer\STH_Slider_Control;
+
+if(!class_exists('\StacesBuilder\Inc\Customizer\STHCustomizer')){
+	class STHCustomizer{
+		function __construct(\WP_Customize_Manager $wp, string $name, array $args){
+			if ( ! $wp instanceof \WP_Customize_Manager ) return false;
+			if(!isset($args['label']) || !isset($args['section'])) return false;
+			$args = array_merge([
+				'default' => '',
+				'transport' => 'refresh',
+				'type' => 'text',
+				'priority' => 10,
+				'settings' => $name
+			], $args);
+			if(isset($args['refresh'])) $args['transport'] = !!$args['refresh'] ? 'refresh' : 'postMessage';
+			if( ! $wp->get_section( $args['section'] ) ){
+				$section_args = array_merge([
+					'title'	=> _st(ucfirst(trim($args['section']))),
+					'priority'	=> 150
+				], $args['section_args'] ?? []);
+				$wp->add_section($args['section'], $section_args);
+			}
+			$wp->add_setting(
+				$name,
+				array(
+					'default'		=> $args['default'],
+					'transport'		=> $args['transport']
+				)
+			);
+			switch ($args['type']) {
+				case 'color': case 'colors':
+					$wp->add_control(new \WP_Customize_Color_Control( $wp, $name, $args ));
+					break;
+				case 'image': case 'images': case 'media':
+					$args['mime_type'] = 'image';
+					$wp->add_control(new \WP_Customize_Media_Control( $wp, $name, $args ));
+					break;
+				case 'range':
+					$wp->add_control(new STH_Slider_Control($wp, $name, $args));
+					break;
+				default: $wp->add_control($name, $args); break;
+			}
+			return true;
+		}
+	}
+}
